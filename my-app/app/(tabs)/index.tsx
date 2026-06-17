@@ -20,7 +20,7 @@ export default function App() {
         null>(null);
     return (
         <SafeAreaView className="flex-1  bg-background p-5">
-            
+
                 <FlatList
                     ListHeaderComponent={() => (
                         <>
@@ -56,7 +56,7 @@ export default function App() {
                                           keyExtractor={(item) => item.id}
                                           horizontal
                                           showsHorizontalScrollIndicator={false}
-                                          ListEmptyComponent={<Text className='home-wmpty-state'
+                                          ListEmptyComponent={<Text className='home-empty-state'
                                           >
                                               No upcoming renewals yet.
                                           </Text> }
