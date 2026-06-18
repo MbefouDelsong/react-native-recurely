@@ -37,7 +37,7 @@ const SignUp = () => {
         });
 
         if (error) {
-            console.error(JSON.stringify(error, null, 2));
+            console.warn('Sign-up failed', { code: error?.code ?? 'unknown' });
             posthog.capture('user_sign_up_failed', {
                 error_message: error.message,
             });
@@ -84,7 +84,7 @@ const SignUp = () => {
                 },
             });
         } else {
-            console.error('Sign-up attempt not complete:', signUp);
+            console.warn('Sign-up attempt not complete', { status: signUp.status });
         }
     };
 

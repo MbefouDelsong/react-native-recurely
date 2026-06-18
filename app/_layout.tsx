@@ -7,7 +7,7 @@ import { tokenCache } from '@clerk/expo/token-cache';
 import { PostHogProvider } from 'posthog-react-native';
 import { posthog } from '../src/config/posthog';
 
-SplashScreen.preventAutoHideAsync();
+SplashScreen.hideAsync().catch(() => {})
 
 const publishableKey = process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY!;
 
