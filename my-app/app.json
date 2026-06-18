@@ -19,7 +19,8 @@
         "monochromeImage": "./assets/images/android-icon-monochrome.png"
       },
       "edgeToEdgeEnabled": true,
-      "predictiveBackGestureEnabled": false
+      "predictiveBackGestureEnabled": false,
+      "package": "com.anonymous.myapp"
     },
     "web": {
       "output": "static",
@@ -27,6 +28,8 @@
     },
     "plugins": [
       "expo-router",
+      "expo-secure-store",
+      "@clerk/expo",
       [
         "expo-splash-screen",
         {
@@ -39,20 +42,30 @@
           }
         }
       ],
-      ["expo-font", { "font":  [
-        "./assets/fonts/PlusJakartaSans-Regular.ttf",
-        "./assets/fonts/PlusJakartaSans-Bold.ttf",
-        "./assets/fonts/PlusJakartaSans-Medium.ttf",
-        "./assets/fonts/PlusJakartaSans-SemiBold.ttf",
-        "./assets/fonts/PlusJakartaSans-ExtraBold.ttf",
-        "./assets/fonts/PlusJakartaSans-Light.ttf"
-      ]
-
-      }]
+      [
+        "expo-font",
+        {
+          "font": [
+            "./assets/fonts/PlusJakartaSans-Regular.ttf",
+            "./assets/fonts/PlusJakartaSans-Bold.ttf",
+            "./assets/fonts/PlusJakartaSans-Medium.ttf",
+            "./assets/fonts/PlusJakartaSans-SemiBold.ttf",
+            "./assets/fonts/PlusJakartaSans-ExtraBold.ttf",
+            "./assets/fonts/PlusJakartaSans-Light.ttf"
+          ]
+        }
+      ],
+      "expo-localization"
     ],
     "experiments": {
       "typedRoutes": true,
       "reactCompiler": true
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "58747e02-2f4f-4855-8529-a1ac701f0d4b"
+      }
     }
   }
 }
