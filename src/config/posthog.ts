@@ -1,26 +1,25 @@
 import PostHog from 'posthog-react-native'
-import Constants from 'expo-constants'
 
-const rawApiKey = Constants.expoConfig?.extra?.posthogProjectToken as string | undefined
-const rawHost = Constants.expoConfig?.extra?.posthogHost as string | undefined
+const rawApiKey = process.env.EXPO_PUBLIC_POSTHOG_API_KEY
+const rawHost = process.env.EXPO_PUBLIC_POSTHOG_HOST
 
-// Trim and normalize API key and host
 const apiKey = rawApiKey?.trim()
 const host = rawHost?.trim()
+
+// Check configurations using your real project token prefix
 const isPostHogConfigured = !!apiKey && apiKey !== '' && apiKey !== 'phc_your_project_token_here'
 
 if (!isPostHogConfigured) {
   console.warn(
     'PostHog project token not configured. Analytics will be disabled. ' +
-    'Set POSTHOG_PROJECT_TOKEN in your .env file to enable analytics.'
+    'Set EXPO_PUBLIC_POSTHOG_API_KEY in your .env file to enable analytics.'
   )
 }
 
-// 1. Create the instance WITHOUT 'debug' in the options object
 export const posthog = new PostHog(apiKey || 'placeholder_key', {
-  ...(host ? { host } : {}),
+  host: host || 'https://us.i.posthog.com',
   disabled: !isPostHogConfigured,
-  captureAppLifecycleEvents: true, // Note: usually handled by 'autocapture' object in newer SDK versions
+  captureAppLifecycleEvents: true, 
   flushAt: 20,
   flushInterval: 10000,
   maxBatchSize: 100,
@@ -33,5 +32,4 @@ export const posthog = new PostHog(apiKey || 'placeholder_key', {
   fetchRetryDelay: 3000,
 })
 
-// 2. Safely call the .debug() method on the initialized instance
 posthog.debug(__DEV__)
