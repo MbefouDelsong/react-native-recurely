@@ -16,9 +16,11 @@ import plus from "@/assets/icons/plus.png";
 import setting from "@/assets/icons/setting.png";
 import spotify from "@/assets/icons/spotify.png";
 import wallet from "../assets/icons/wallet.png";
+import logo from "../assets/icons/logo.png";
 
 export const icons = {
     home,
+    logo,
     wallet,
     setting,
     activity,
