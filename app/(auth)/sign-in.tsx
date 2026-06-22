@@ -6,8 +6,7 @@ import { SafeAreaView as RNSafeAreaView } from 'react-native-safe-area-context';
 import { styled } from 'nativewind';
 import { usePostHog } from 'posthog-react-native';
 
-// Force TypeScript to accept this styled wrapper as a generic layout component
-const SafeAreaView = styled(RNSafeAreaView) as any;
+const SafeAreaView = styled(RNSafeAreaView);
 
 const SignIn = () => {
     const { signIn, errors, fetchStatus } = useSignIn();
@@ -36,7 +35,7 @@ const SignIn = () => {
         });
 
         if (error) {
-            console.warn('Sign-in failed', { code: error?.code ?? 'unknown' });
+            console.error(JSON.stringify(error, null, 2));
             posthog.capture('user_sign_in_failed', {
                 error_message: error.message,
             });
@@ -84,7 +83,7 @@ const SignIn = () => {
                 await signIn.mfa.sendEmailCode();
             }
         } else {
-            console.warn('Sign-in attempt not complete', { status: signIn.status });
+            console.error('Sign-in attempt not complete:', signIn);
         }
     };
 
@@ -121,7 +120,7 @@ const SignIn = () => {
                 },
             });
         } else {
-           console.warn('Sign-in attempt not complete', { status: signIn.status });
+            console.error('Sign-in attempt not complete:', signIn);
         }
     };
 
@@ -298,7 +297,7 @@ const SignIn = () => {
 
                         {/* Sign-Up Link */}
                         <View className="auth-link-row">
-                            <Text className="auth-link-copy">Don&apos;t have an account?</Text>
+                            <Text className="auth-link-copy">Don't have an account?</Text>
                             <Link href="/(auth)/sign-up" asChild>
                                 <Pressable>
                                     <Text className="auth-link">Create Account</Text>

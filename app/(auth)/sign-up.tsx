@@ -6,8 +6,7 @@ import { SafeAreaView as RNSafeAreaView } from 'react-native-safe-area-context';
 import { styled } from 'nativewind';
 import { usePostHog } from 'posthog-react-native';
 
-// Force TypeScript to accept this styled wrapper as a generic layout component
-const SafeAreaView = styled(RNSafeAreaView) as any;
+const SafeAreaView = styled(RNSafeAreaView);
 
 const SignUp = () => {
     const { signUp, errors, fetchStatus } = useSignUp();
@@ -27,6 +26,7 @@ const SignUp = () => {
     const emailValid = emailAddress.length === 0 || /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailAddress);
     const passwordValid = password.length === 0 || password.length >= 8;
     const formValid = emailAddress.length > 0 && password.length >= 8 && emailValid;
+    const [verificationSent, setVerificationSent] = useState(false);
 
     const handleSubmit = async () => {
         if (!formValid) return;
@@ -37,7 +37,7 @@ const SignUp = () => {
         });
 
         if (error) {
-            console.warn('Sign-up failed', { code: error?.code ?? 'unknown' });
+            console.error(JSON.stringify(error, null, 2));
             posthog.capture('user_sign_up_failed', {
                 error_message: error.message,
             });
@@ -45,9 +45,8 @@ const SignUp = () => {
         }
 
         // Send verification email
-        if (!error) {
-            await signUp.verifications.sendEmailCode();
-        }
+        await signUp.verifications.sendEmailCode();
+        setVerificationSent(true);
     };
 
     const handleVerify = async () => {
@@ -84,7 +83,7 @@ const SignUp = () => {
                 },
             });
         } else {
-            console.warn('Sign-up attempt not complete', { status: signUp.status });
+            console.error('Sign-up attempt not complete:', signUp);
         }
     };
 
@@ -95,6 +94,7 @@ const SignUp = () => {
 
     // Show verification screen if email needs verification
     if (
+        verificationSent &&
         signUp.status === 'missing_requirements' &&
         signUp.unverifiedFields.includes('email_address') &&
         signUp.missingFields.length === 0
