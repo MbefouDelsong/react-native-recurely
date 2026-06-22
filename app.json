@@ -20,8 +20,7 @@
         "monochromeImage": "./assets/images/android-icon-monochrome.png"
       },
       "edgeToEdgeEnabled": true,
-      "predictiveBackGestureEnabled": false,
-      "package": "com.anonymous.myapp"
+      "predictiveBackGestureEnabled": false
     },
     "web": {
       "output": "static",
@@ -46,7 +45,7 @@
       [
         "expo-font",
         {
-          "font": [
+          "fonts": [
             "./assets/fonts/PlusJakartaSans-Regular.ttf",
             "./assets/fonts/PlusJakartaSans-Bold.ttf",
             "./assets/fonts/PlusJakartaSans-Medium.ttf",
@@ -62,13 +61,13 @@
       "typedRoutes": true,
       "reactCompiler": true
     },
-"extra": {
-  "router": {},
-  "eas": {
-    "projectId": "58747e02-2f4f-4855-8529-a1ac701f0d4b"
-  },
-  "posthogProjectToken": "your-token",
-  "posthogHost": "your-host"
-}
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "58747e02-2f4f-4855-8529-a1ac701f0d4b"
+      },
+      "posthogProjectToken": "your-token",
+      "posthogHost": "your-host"
+    }
   }
 }
