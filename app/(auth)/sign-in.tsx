@@ -56,14 +56,14 @@ const SignIn = () => {
                     });
                     posthog.capture('user_signed_in', { email: emailAddress });
 
-                    const url = decorateUrl('/(tabs)');
+                    const url = decorateUrl('/(tabs)/');
                     if (url.startsWith('http')) {
                         // Only use window.location on web platform
                         if (typeof window !== 'undefined' && window.location) {
                             window.location.href = url;
                         } else {
                             // On native, just use router navigation
-                            router.replace('/(tabs)' as Href);
+                            router.replace('/(tabs)/' as Href);
                         }
                     } else {
                         router.replace(url as Href);

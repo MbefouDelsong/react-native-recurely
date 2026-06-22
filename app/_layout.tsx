@@ -6,6 +6,9 @@ import { ClerkProvider, useAuth } from '@clerk/expo';
 import { tokenCache } from '@clerk/expo/token-cache';
 import { PostHogProvider } from 'posthog-react-native';
 import { posthog } from '../src/config/posthog';
+import {StatusBar} from 'expo-status-bar'
+
+
 
 SplashScreen.hideAsync().catch(() => {})
 
@@ -72,6 +75,7 @@ export default function RootLayout() {
         propsToCapture: ['testID'],
       }}
     >
+      <StatusBar style="dark" />
       <ClerkProvider publishableKey={publishableKey} tokenCache={tokenCache}>
         <RootLayoutContent />
       </ClerkProvider>

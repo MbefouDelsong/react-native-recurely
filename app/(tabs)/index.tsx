@@ -37,6 +37,7 @@ export default function App() {
 
     const handleSubscriptionPress = (item: Subscription) => {
         const isExpanding = expandedSubscriptionId !== item.id;
+        // console.log('Adding subscription:', newSubscription);
         setExpandedSubscriptionId((currentId) => (currentId === item.id ? null : item.id));
         posthog.capture(isExpanding ? 'subscription_expanded' : 'subscription_collapsed', {
             subscription_name: item.name,
@@ -45,13 +46,14 @@ export default function App() {
     };
 
     const handleCreateSubscription = (newSubscription: Subscription) => {
+        // console.log('Adding subscription:', newSubscription);
         addSubscription(newSubscription);
-        
+
         posthog.capture('subscription_created', {
             subscription_name: newSubscription.name,
             subscription_price: newSubscription.price,
             subscription_frequency: newSubscription.billing,
-            subscription_category: newSubscription.category ?? 'Uncategorized', 
+            subscription_category: newSubscription.category ?? 'Uncategorized',
         });
     };
 
@@ -92,24 +94,12 @@ export default function App() {
                             <View className="mb-5">
                                 <ListHeading title="Upcoming" />
 
-                                {/* <FlatList
-                                    data={upcomingSubscriptions}
-                                    renderItem={({ item }) => (
-                                        <UpcomingSubscriptionCard 
-                                            {...item} 
-                                            daysLeft={calculateDaysLeft(item.renewalDate)} 
-                                        />
-                                    )}
-                                    keyExtractor={(item) => item.id}
-                                    horizontal
-                                    showsHorizontalScrollIndicator={false}
-                                    ListEmptyComponent={<Text className="home-empty-state">No upcoming renewals yet.</Text>}
-                                /> */}
-
                                 <FlatList
                                     data={upcomingSubscriptions}
-                                    // Your original clean code works perfectly now!
-                                    renderItem={({ item }) => <UpcomingSubscriptionCard {...item} />}
+                                    renderItem={({ item }) =>
+                                        <UpcomingSubscriptionCard { ...item }
+                                            daysLeft={calculateDaysLeft(item.renewalDate)}
+                                        />}
                                     keyExtractor={(item) => item.id}
                                     horizontal
                                     showsHorizontalScrollIndicator={false}
