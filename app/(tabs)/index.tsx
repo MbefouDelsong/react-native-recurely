@@ -24,7 +24,6 @@ export default function App() {
     const [isModalVisible, setIsModalVisible] = useState(false);
     const { subscriptions, addSubscription } = useSubscriptionStore();
 
-    // Get upcoming subscriptions (active subscriptions with renewal date within next 7 days)
     const upcomingSubscriptions = useMemo(() => {
         const now = dayjs();
         const nextWeek = now.add(7, 'days');

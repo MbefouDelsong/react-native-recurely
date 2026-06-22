@@ -120,7 +120,7 @@ const Insights = () => {
                 </View>
 
                 {/* --- Expenses Summary --- */}
-                <View className="auth-card !mt-3" style={{ paddingVertical: 16 }}>
+                <View className="auth-card  !mt-3" style={{ paddingVertical: 16 }}>
                     <View className="flex-row justify-between items-center">
                         <View>
                             <Text className="text-base font-sans-bold text-primary">Expenses</Text>
@@ -153,22 +153,22 @@ const Insights = () => {
                             return (
                                 <View
                                     key={sub.id}
-                                    className="auth-card !mt-3 "
+                                    className="auth-card  !mt-3 "
                                     style={{ backgroundColor: bgColor, paddingVertical: 14 }}
                                 >
                                     <View className="flex-row items-center justify-between">
                                         <View className="flex-row items-center gap-1">
                                             <View
-                                                className="rounded-2xl items-center justify-center"
+                                                className="rounded-2xl pr-3 items-center justify-center"
                                                 style={{
-                                                    width: 46,
-                                                    height: 46,
-                                                    backgroundColor: 'rgba(255,255,255,0.35)',
+                                                    width: 60,
+                                                    height: 60,
+
                                                 }}
                                             >
                                                 <Image
                                                     source={sub.icon}
-                                                    style={{ width: 26, height: 26 }}
+                                                    style={{ width: 60, height: 60 }}
                                                     resizeMode="contain"
                                                 />
                                             </View>

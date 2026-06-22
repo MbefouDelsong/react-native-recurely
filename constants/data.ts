@@ -139,12 +139,12 @@ export const HOME_SUBSCRIPTIONS: Subscription[] = [
         plan: "Teams Plan",
         category: "Design",
         paymentMethod: "Visa ending in 8530",
-        status: "active", // ✅ 1st Item (Shows up: 2 days left)
+        status: "active",
         startDate: "2025-03-20T10:00:00.000Z",
         price: 77.49,
         currency: "USD",
         billing: "Monthly",
-        renewalDate: "2026-06-21T10:00:00.000Z", 
+        renewalDate: "2026-06-24T10:00:00.000Z",
         color: "#f5c542",
     },
     {
@@ -154,7 +154,7 @@ export const HOME_SUBSCRIPTIONS: Subscription[] = [
         plan: "Developer",
         category: "Developer Tools",
         paymentMethod: "Mastercard ending in 2408",
-        status: "active", // ✅ 2nd Item (Shows up: 5 days left)
+        status: "active",
         startDate: "2024-11-24T10:00:00.000Z",
         price: 9.99,
         currency: "USD",

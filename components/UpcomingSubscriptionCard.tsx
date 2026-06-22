@@ -43,8 +43,7 @@ const UpcomingSubscriptionCard = ({ name, price, daysLeft, icon, currency }: Upc
                 <View>
                     <Text className="upcoming-price">{formatCurrency(price, currency)}</Text>
                     <Text className="upcoming-meta" numberOfLines={1}>
-                        {/* 2. Safe evaluation fallback */}
-                        {daysLeft === undefined 
+                        {daysLeft === undefined
                             ? 'Upcoming' 
                             : daysLeft > 1 
                                 ? `${daysLeft} days left` 
