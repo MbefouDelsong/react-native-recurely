@@ -4,6 +4,7 @@ import clsx from 'clsx';
 import { icons } from '@/constants/icons';
 import dayjs from 'dayjs';
 import {posthog} from "@/src/config/posthog";
+import {BlurView} from "expo-blur";
 
 interface CreateSubscriptionModalProps {
   visible: boolean;
@@ -100,7 +101,13 @@ const CreateSubscriptionModal = ({ visible, onClose, onSubmit }: CreateSubscript
         className="flex-1"
         keyboardVerticalOffset={0}
       >
-        <Pressable className="modal-overlay" onPress={handleClose}>
+        <BlurView
+        intensity={40}
+        tint="dark"
+        style={{ flex: 1, justifyContent: 'flex-end' }}>
+
+          <Pressable style={{ flex: 1}} onPress={handleClose}>
+
           <Pressable className="modal-container" onPress={(e) => e.stopPropagation()}>
             <View className="modal-header">
               <Text className="modal-title">New Subscription</Text>
@@ -186,7 +193,9 @@ const CreateSubscriptionModal = ({ visible, onClose, onSubmit }: CreateSubscript
               </Pressable>
             </ScrollView>
           </Pressable>
-        </Pressable>
+
+          </Pressable>
+        </BlurView>
       </KeyboardAvoidingView>
     </Modal>
   );
