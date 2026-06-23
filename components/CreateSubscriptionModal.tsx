@@ -102,7 +102,7 @@ const CreateSubscriptionModal = ({ visible, onClose, onSubmit }: CreateSubscript
         keyboardVerticalOffset={0}
       >
         <BlurView
-        intensity={40}
+        intensity={80}
         tint="dark"
         style={{ flex: 1, justifyContent: 'flex-end' }}>
 

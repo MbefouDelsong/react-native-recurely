@@ -17,6 +17,7 @@ import setting from "@/assets/icons/setting.png";
 import spotify from "@/assets/icons/spotify.png";
 import wallet from "../assets/icons/wallet.png";
 import logo from "../assets/icons/logo.png";
+import splash from "../assets/images/splash-pattern.png"
 
 export const icons = {
     home,
@@ -38,6 +39,7 @@ export const icons = {
     github,
     claude,
     canva,
+    splash,
 } as const;
 
 export type IconKey = keyof typeof icons;

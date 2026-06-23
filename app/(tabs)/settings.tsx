@@ -3,6 +3,7 @@ import { SafeAreaView as RNSafeAreaView } from "react-native-safe-area-context";
 import { styled } from "nativewind";
 import { useClerk, useUser } from '@clerk/expo';
 import images from '@/constants/images';
+import { icons } from '@/constants/icons';
 import { usePostHog } from 'posthog-react-native';
 import { useState } from 'react';
 import * as ImagePicker from 'expo-image-picker';
@@ -59,19 +60,31 @@ const Settings = () => {
             Alert.alert('Permission needed', 'Please allow access to your photo library.');
             return;
         }
+
         const result = await ImagePicker.launchImageLibraryAsync({
             mediaTypes: ['images'],
             allowsEditing: true,
             aspect: [1, 1],
             quality: 0.8,
         });
+
         if (!result.canceled && result.assets[0]) {
             try {
-                const response = await fetch(result.assets[0].uri);
-                const blob = await response.blob();
-                await user?.setProfileImage({ file: blob });
+                const asset = result.assets[0];
+                const mimeType = asset.mimeType || 'image/jpeg';
+                const ext = mimeType.split('/')[1] || 'jpg';
+
+                // React Native file-like object — no blob conversion needed
+                const file = {
+                    uri: asset.uri,
+                    type: mimeType,
+                    name: `profile.${ext}`,
+                } as any;
+
+                await user?.setProfileImage({ file });
                 posthog.capture('user_profile_updated', { field: 'avatar' });
-            } catch {
+            } catch (error) {
+                console.error('Image upload error:', error);
                 Alert.alert('Error', 'Failed to update profile picture.');
             }
         }
@@ -97,12 +110,16 @@ const Settings = () => {
                             />
                             <View style={{
                                 position: 'absolute', bottom: 0, right: 0,
-                                width: 26, height: 26, borderRadius: 13,
+                                width: 28, height: 28, borderRadius: 14,
                                 backgroundColor: '#1c1c2e',
                                 borderWidth: 2, borderColor: 'white',
                                 alignItems: 'center', justifyContent: 'center',
                             }}>
-                                <Text style={{ fontSize: 11 }}>✏️</Text>
+                                <Image
+                                    source={icons.plus}
+                                    style={{ width: 14, height: 14, tintColor: 'white' }}
+                                    resizeMode="contain"
+                                />
                             </View>
                         </Pressable>
                     </View>
@@ -144,7 +161,7 @@ const Settings = () => {
                                     className="flex-1 auth-secondary-button"
                                     onPress={handleCancelEdit}
                                 >
-                                    <Text className="auth-secondary-button-text  pt-1.5 !text-base">Cancel</Text>
+                                    <Text className="auth-secondary-button-text !font-base mt-2">Cancel</Text>
                                 </Pressable>
                             </View>
                         </View>
@@ -160,7 +177,7 @@ const Settings = () => {
                                 className="auth-secondary-button mt-2"
                                 onPress={() => setIsEditingName(true)}
                             >
-                                <Text className="auth-secondary-button-text pl-2 pr-2">Edit Name</Text>
+                                <Text className="auth-secondary-button-text pr-1.5 pl-1.5">Edit Name</Text>
                             </Pressable>
                         </View>
                     )}
